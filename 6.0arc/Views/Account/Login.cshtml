@@ -1,0 +1,62 @@
+﻿@model Csiro.ViewModels.LoginViewModel
+
+
+    <div class="container">
+   <div class="row">
+      <div class="col-md-6 mx-auto">
+          <div class="card">
+              <div class="card-body">
+                  <div class="row">
+                     <div class="col">
+                           <center>
+                                 <img width="150" src="/images/admin.png" />
+                            </center>
+                      </div>
+                   </div>
+              <div class="row">
+                   <div class="col">
+                          <center>
+                                 <h3>Member Login</h3>
+                             </center>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+									<form method="post">
+										<div asp-validation-summary="All" class="text-danger"></div>
+								<div class="form-floating mb-3">
+											<label asp-for="Email"></label>
+											<input asp-for="Email" id="id1" class="form-control" />
+											<span asp-validation-for="Email" class="text-danger" />
+										</div>
+
+								<div class="form-floating mb-3">
+											<label asp-for="Password"></label>
+											<input asp-for="Password" id="id1" class="form-control" />
+											<span asp-validation-for="Password" class="text-danger" />
+										</div>
+
+
+								<div class="form-floating mb-3">
+											<label asp-for="RememberMe"></label>
+											<input asp-for="RememberMe" id="id1">
+
+										</div>
+
+										<button type="submit" class="btn btn-primary">Log in</button>
+
+									</form>
+
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
