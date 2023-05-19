@@ -7,7 +7,7 @@ namespace MVCAssessment2.Models
         [Key]
         public int uniID { get; set; }
 
-        public string universityName { get; set; }
+        public string uniName { get; set; }
 
     }
 }

@@ -1,8 +1,11 @@
-﻿using Csiro.ViewModels;
+﻿using _6._0arc.Models;
+using Csiro.Models;
+using Csiro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MVCAssessment2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +13,13 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace Csiro.Controllers
-
 {
-	[Authorize(Roles = "admin")]
+
+    [Authorize(Roles = "admin")]
 	public class AdminController: Controller
     {
 
+        private readonly ApplicantDataContext _db;
         private UserManager<IdentityUser> userManager { get; }
         private RoleManager<IdentityRole> roleManager { get; }
 
@@ -115,6 +119,37 @@ namespace Csiro.Controllers
             {
                 mrole.roleList.Add(new SelectListItem { Text = role.Name, Value = role.Id });
             }
+        }
+
+        public IActionResult DisplayApps()
+        {
+            var p = from a in _db.applicants
+                    join c in _db.courses
+                    on a.courseID equals c.courseID into anObject
+                    join u in _db.universities
+                    on a.uniID equals u.uniID
+                    from c in anObject.DefaultIfEmpty()
+                    select new
+                    {
+                        applicantID = a.applicantID,
+                        firstName = a.firstName,
+                        lastName = a.lastName,
+                        email = a.email,
+                        courseName = c.courseName,
+                        uniName = u.uniName,
+                        gpa = a.gpa,
+                        resume = a.resume
+                    };
+            List<ApplicationCombined> aList = new List<ApplicationCombined>();
+            foreach (var applicant in p) {
+                Applicants app = new Applicants { applicantID = applicant.applicantID, firstName = applicant.firstName, lastName = applicant.lastName, email = applicant.email, gpa = applicant.gpa, resume = applicant.resume};
+                Courses cor = new Courses { courseName = applicant.courseName };
+                Universities uni = new Universities { uniName = applicant.uniName };
+                ApplicationCombined fullApp = new ApplicationCombined { a10 = app, c10 = cor, u10 = uni };
+                aList.Add(fullApp);
+            }
+
+            return View(aList);
         }
 
         public IActionResult Index()
