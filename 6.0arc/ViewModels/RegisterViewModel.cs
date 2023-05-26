@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace Csiro.ViewModels
 {
@@ -37,12 +38,15 @@ namespace Csiro.ViewModels
 		[Compare("Password", ErrorMessage = "Password and confirm password do not match")]
 		public string ConfirmPassword { get; set; }
 
+		[Display(Name = "Cover Letter (optional):")]
+		[DataType(DataType.MultilineText)]
+		public string CoverLetter { get; set; }
 
-
-
+		[Display(Name = "Resume (optional):")]
 		[DataType(DataType.MultilineText)]
 		public string Resume { get; set; }
 
 
-	}
+
+    }
 }

@@ -53,23 +53,34 @@
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <br />
-
-
                 <div class="form-floating mb-3">
-                    <label asp-for="Resume" class="control-label"></label>
+                    <label asp-for="CoverLetter" class="control-label"></label>
                     <div>
-                        @Html.TextAreaFor(model => model.Resume, new { @class = "form-control" })
+                        @Html.TextAreaFor(model => model.CoverLetter, new { @class = "form-control", @rows = "4" })
 
                     </div>
 
+                  </div>
+                  <br />
+                <div class="form-floating mb-3">
+                    <label asp-for="Resume" class="control-label"></label>
+                    <div>
+                        @Html.TextAreaFor(model => model.Resume, new { @class = "form-control", @rows = "4" })
 
+                    </div>
+                    <br />
+             
+
+           
+      
                     <div class="d-flex justify-content-center ">
                         <button id="registerSubmit" type="submit" class="w-40 btn btn-lg btn-primary ">Register</button>
                     </div>
 
-
+                  </div>
 
             </form>
+            
         </div>
     </div>
 </div>
