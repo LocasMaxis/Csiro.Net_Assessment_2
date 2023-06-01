@@ -47,12 +47,12 @@ namespace Csiro.ViewModels
         public string Resume { get; set; }
 
         [Display(Name = "Course:")]
-        public string courseID { get; set; }
+        public int CourseID { get; set; }
         [Required(ErrorMessage = "Course is required")]
         public List<SelectListItem> courseList { get; set; }
 
         [Required(ErrorMessage = "University selection required")]
-        public string uniID { get; set; }
+        public int UniID { get; set; }
         public List<SelectListItem> uniList { get; set; }
 
         public RegisterViewModel()

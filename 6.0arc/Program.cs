@@ -23,7 +23,7 @@ builder.Services.AddDbContext<ApplicantDbContext>(options =>
 
 });
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicantionUser, IdentityRole>(options =>
         {
 	        options.SignIn.RequireConfirmedEmail = true;
          })

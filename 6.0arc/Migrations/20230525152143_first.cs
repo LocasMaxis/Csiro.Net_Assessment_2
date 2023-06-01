@@ -25,7 +25,7 @@ namespace _6._0arc.Migrations
                     gpa = table.Column<float>(type: "real", nullable: false),
                     coverLetter = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     resume = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    
                 },
                 constraints: table =>
                 {

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Csiro.Models
 {
-    public class ApplicantDbContext : IdentityDbContext
+    public class ApplicantDbContext : IdentityDbContext<ApplicantionUser>
     {
         public DbSet<Applicants> applicants { get; set; }
 		public DbSet<Courses> courses { get; set; }

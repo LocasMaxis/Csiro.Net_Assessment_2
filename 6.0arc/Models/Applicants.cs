@@ -14,6 +14,6 @@ namespace Csiro.Models
         public float gpa { get; set; }
 		public string? coverLetter { get; set; }
 		public string? resume { get; set; }
-		public int UserId { get; set; } // fk - from AspNetUsers
+	
     }
 }

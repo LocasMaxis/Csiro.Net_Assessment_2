@@ -1,4 +1,5 @@
-﻿using Csiro.ViewModels;
+﻿using Csiro.Models;
+using Csiro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,12 @@ namespace Csiro.Controllers
 	public class AdminController: Controller
     {
 
-        private UserManager<IdentityUser> userManager { get; }
+        private UserManager<ApplicantionUser> userManager { get; }
         private RoleManager<IdentityRole> roleManager { get; }
 
         private List<string> userList;
 
-        public AdminController(UserManager<IdentityUser> _userManager,
+        public AdminController(UserManager<ApplicantionUser> _userManager,
             RoleManager<IdentityRole> _roleManager)
         {
             this.userManager = _userManager;
@@ -34,7 +35,7 @@ namespace Csiro.Controllers
 
         }
         [HttpGet]
-        //[Authorize(Roles = "admin1, user")] //or
+        //[Authorize(Roles = "admin, user")] 
 		
 		public IActionResult CreateRole()
         {

@@ -47,31 +47,5 @@ public class ApplicantController : Controller
         return View();
     }
 
-    //500 server error when submitting  FIX
-    /*[HttpPost]
-    public async Task<IActionResult> Register(RegisterViewModel model)
-    {
-        if (ModelState.IsValid)
-        {
-            // Create a new instance of the Applicants model and map the values from the view model
-            var applicant = new Applicants
-            {
-                firstName = model.FirstName,
-                lastName = model.LastName,
-                gpa = (float)model.Gpa,
-                email = model.Email,
-                
-            };
-
-            // Save the applicant to the database
-            _db.applicants.Add(applicant);
-            await _db.SaveChangesAsync();
-
-            
-            return RedirectToAction("Success");
-        }
-
-        // If the registration fails, return the view with the model to display validation errors
-        return View(model);
-    }*/
+ 
 }

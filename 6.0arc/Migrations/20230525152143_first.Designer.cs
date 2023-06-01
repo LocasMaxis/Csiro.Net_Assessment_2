@@ -33,9 +33,6 @@ namespace _6._0arc.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("applicantID"));
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<int>("courseID")
                         .HasColumnType("int");
 

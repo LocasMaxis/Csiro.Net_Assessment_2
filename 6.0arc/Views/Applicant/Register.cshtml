@@ -74,29 +74,29 @@
                 <!-- Dropdown for Course -->
 
                 <div class="form-floating mb-3">
-                    <label asp-for="courseID">Course</label>
-                    <select asp-for="courseID" class="form-control">
+                    <label asp-for="CourseID">Course</label>
+                    <select asp-for="CourseID" class="form-control">
                         <option value="">Select Course</option>
                         @foreach (var item in Model.courseList)
                         {
                             <option value="@item.Value">@item.Text</option>
                         }
                     </select>
-                    <span asp-validation-for="courseID" class="text-danger"></span>
+                    <span asp-validation-for="CourseID" class="text-danger"></span>
                 </div>
                 <br />
 
                 <!-- Dropdown for University -->
                 <div class="form-floating mb-3">
-                    <label asp-for="uniID">University</label>
-                    <select asp-for="uniID" class="form-control">
+                    <label asp-for="UniID">University</label>
+                    <select asp-for="UniID" class="form-control">
                         <option value="">Select University</option>
                         @foreach (var item in Model.uniList)
                         {
                             <option value="@item.Value">@item.Text</option>
                         }
                     </select>
-                    <span asp-validation-for="uniID" class="text-danger"></span>
+                    <span asp-validation-for="UniID" class="text-danger"></span>
                 </div>
 
                 <div class="d-flex justify-content-center">
