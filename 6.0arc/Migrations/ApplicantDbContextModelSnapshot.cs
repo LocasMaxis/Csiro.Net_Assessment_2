@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace _6._0arc.Migrations
 {
-    [DbContext(typeof(ApplicantDataContext))]
-    partial class ApplicantDataContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicantDbContext))]
+    partial class ApplicantDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
