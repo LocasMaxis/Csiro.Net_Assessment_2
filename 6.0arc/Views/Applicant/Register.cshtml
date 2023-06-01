@@ -51,21 +51,21 @@
 
                 <br />
 
+                <!-- Cover Letter -->
                 <div class="form-floating mb-3">
                     <label asp-for="CoverLetter" class="control-label"></label>
                     <div>
-                        @Html.TextAreaFor(model => model.CoverLetter, new { @class = "form-control", @rows = "4" })
-                      
+                        <textarea asp-for="CoverLetter" class="form-control" rows="4" data-val="false"></textarea>
+                        <span asp-validation-for="CoverLetter" class="text-danger"></span>
                     </div>
                 </div>
 
-                <br />
-
-                   <div class="form-floating mb-3">
+                <!-- Resume -->
+                <div class="form-floating mb-3">
                     <label asp-for="Resume" class="control-label"></label>
                     <div>
-                        @Html.TextAreaFor(model => model.Resume, new { @class = "form-control", @rows = "4" })
-                      
+                        <textarea asp-for="Resume" class="form-control" rows="4" data-val="false"></textarea>
+                        <span asp-validation-for="Resume" class="text-danger"></span>
                     </div>
                 </div>
 
