@@ -15,7 +15,7 @@ IConfigurationRoot configuration;
 
 configuration = new ConfigurationBuilder().AddJsonFile("./config.json").Build();
 
-builder.Services.AddDbContext<ApplicantDataContext>(options =>
+builder.Services.AddDbContext<ApplicantDbContext>(options =>
 {
     var connectionString = configuration.GetConnectionString("DBConnection");
     options.UseSqlServer(connectionString);
@@ -27,7 +27,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
         {
 	        options.SignIn.RequireConfirmedEmail = true;
          })
-				.AddEntityFrameworkStores<ApplicantDataContext>()    
+				.AddEntityFrameworkStores<ApplicantDbContext>()    
                 .AddDefaultTokenProviders()
                 .AddRoles<IdentityRole>();
 
@@ -72,7 +72,7 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Register}/{id?}");
+    pattern: "{controller=Applicant}/{action=Register}/{id?}");
   
 
 

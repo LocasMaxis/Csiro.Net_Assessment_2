@@ -88,7 +88,7 @@ namespace Csiro.Controllers
 
 					//
 
-					return RedirectToAction("Display", "Post");
+					return RedirectToAction("Index", "Home");
 
 
 
@@ -99,14 +99,16 @@ namespace Csiro.Controllers
                 return View(new LoginViewModel());
         }
 
-
-
-
         public IActionResult Index()
 		{
 			return View();
 		}
 
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
 
-	}
+    }
 }
