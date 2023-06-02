@@ -6,16 +6,16 @@ using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-IConfigurationRoot configuration;
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+IConfigurationRoot configuration;
 
 
 
 configuration = new ConfigurationBuilder().AddJsonFile("./config.json").Build();
 
-builder.Services.AddDbContext<ApplicantDataContext>(options =>
+builder.Services.AddDbContext<ApplicantDbContext>(options =>
 {
     var connectionString = configuration.GetConnectionString("DBConnection");
     options.UseSqlServer(connectionString);
@@ -27,7 +27,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
         {
 	        options.SignIn.RequireConfirmedEmail = true;
          })
-				.AddEntityFrameworkStores<ApplicantDataContext>()    
+				.AddEntityFrameworkStores<ApplicantDbContext>()    
                 .AddDefaultTokenProviders()
                 .AddRoles<IdentityRole>();
 
@@ -60,13 +60,7 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseSession(new SessionOptions()
-{
-    Cookie = new CookieBuilder()
-    {
-        Name = ".AspNetCore.Session.Csiro"
-    }
-});
+app.UseSession();
 
 app.UseRouting();
 
@@ -78,7 +72,7 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}");
+    pattern: "{controller=Applicant}/{action=Register}/{id?}");
   
 
 
