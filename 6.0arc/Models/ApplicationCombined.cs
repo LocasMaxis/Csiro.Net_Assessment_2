@@ -1,9 +1,8 @@
 ﻿using Csiro.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MVCAssessment2.Models;
 
-namespace _6._0arc.Models
+namespace Csiro.Models
 {
     public class ApplicationCombined
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MVCAssessment2.Models
+namespace Csiro.Models
 {
     public class Courses
     {

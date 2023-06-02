@@ -6,10 +6,10 @@ using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
 
 IConfigurationRoot configuration;
+// Add services to the container.
+builder.Services.AddRazorPages();
 
 
 
@@ -60,7 +60,13 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseSession();
+app.UseSession(new SessionOptions()
+{
+    Cookie = new CookieBuilder()
+    {
+        Name = ".AspNetCore.Session.Csiro"
+    }
+});
 
 app.UseRouting();
 
@@ -72,7 +78,7 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Register}/{id?}");
+    pattern: "{controller=Account}/{action=Login}");
   
 
 

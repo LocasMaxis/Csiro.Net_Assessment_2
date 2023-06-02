@@ -1,11 +1,9 @@
-﻿using _6._0arc.Models;
-using Csiro.Models;
+﻿using Csiro.Models;
 using Csiro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MVCAssessment2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

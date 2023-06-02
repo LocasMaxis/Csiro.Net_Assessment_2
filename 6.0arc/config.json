@@ -1,4 +1,4 @@
 {
   "EnableDeveloperExceptions": "True",
-  "ConnectionStrings": { "DBConnection": "Server=DESKTOP-7EGV5KJ;Database=CSIRO;Uid=sa;Password=Dipstick6!;Encrypt=False;Integrated Security=true" }
+  "ConnectionStrings": { "DBConnection": "Server=DESKTOP-U9LAQTL;Database=CSIRO2;Integrated Security=true;Encrypt=False" }
 }
