@@ -13,7 +13,7 @@ namespace Csiro.Controllers
 			SignInManager<IdentityUser> _signInManager)
 		{
 			this.userManager = _userManager;
-				this.signInManager = _signInManager;
+			this.signInManager = _signInManager;
 		}
 		[HttpGet]
 		public IActionResult Register()

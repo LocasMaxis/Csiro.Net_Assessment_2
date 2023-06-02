@@ -7,9 +7,7 @@ namespace Csiro.Models
         [Key]
         public int uniID { get; set; }
 
-		public int uniRank { get; set; }
-
-		public string uniName { get; set; }
+        public string uniName { get; set; }
 
     }
 }
