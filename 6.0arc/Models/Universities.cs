@@ -5,11 +5,11 @@ namespace Csiro.Models
     public class Universities
     {
         [Key]
-        public int uniID { get; set; }
+        public int UniID { get; set; }
 
-		public int uniRank { get; set; }
+		public int UniRank { get; set; }
 
-		public string uniName { get; set; }
+		public string UniName { get; set; }
 
     }
 }

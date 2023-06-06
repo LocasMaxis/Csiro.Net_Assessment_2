@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace _6._0arc.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class code : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,8 +24,7 @@ namespace _6._0arc.Migrations
                     uniID = table.Column<int>(type: "int", nullable: false),
                     gpa = table.Column<float>(type: "real", nullable: false),
                     coverLetter = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    resume = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    
+                    resume = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,6 +50,8 @@ namespace _6._0arc.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

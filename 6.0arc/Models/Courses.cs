@@ -5,8 +5,10 @@ namespace Csiro.Models
     public class Courses
     {
         [Key]
-        public int courseID { get; set; }
+        public int CourseID { get; set; }
 
-        public string courseName { get; set; }
+        public string CourseName { get; set; }
+
+
     }
 }

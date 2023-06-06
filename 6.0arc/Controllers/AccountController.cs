@@ -8,26 +8,33 @@ namespace Csiro.Controllers
 {
 	public class AccountController : Controller
 	{
-		private UserManager<ApplicantionUser> userManager { get; }
-		private SignInManager<ApplicantionUser> signInManager { get; }
+		private UserManager<ApplicationUser> userManager { get; }
+		private SignInManager<ApplicationUser> signInManager { get; }
 
-		public AccountController (UserManager<ApplicantionUser> _userManager, 
-			SignInManager<ApplicantionUser> _signInManager)
+		public AccountController (UserManager<ApplicationUser> _userManager, 
+			SignInManager<ApplicationUser> _signInManager)
 		{
 			this.userManager = _userManager;
 			this.signInManager = _signInManager;
-            this.dbContext = _dbContext;
+    
         }
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new RegisterViewModel());
+        }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel m)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicantionUser
+                var user = new ApplicationUser
                 {
                     UserName = m.Email,
                     Email = m.Email,
                     FirstName = m.FirstName,
+                    Gpa =(float)m.Gpa,
                     LastName = m.LastName,
                     CourseID = m.CourseID,
                     UniID = m.UniID,
@@ -44,9 +51,7 @@ namespace Csiro.Controllers
                     await System.IO.File.WriteAllTextAsync("confirm.txt", confirmationLink.ToString());
                     ViewBag.ErrorTitle = "User creation is successful";
 
-                    // Save the user to the database
-                    await dbContext.applicants.AddAsync(user);
-                    await dbContext.SaveChangesAsync();
+                    
 
                     return View("Error");
                 }

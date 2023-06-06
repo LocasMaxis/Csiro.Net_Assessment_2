@@ -17,12 +17,12 @@ namespace Csiro.Controllers
 	public class AdminController: Controller
     {
 
-        private UserManager<ApplicantionUser> userManager { get; }
+        private UserManager<ApplicationUser> userManager { get; }
         private RoleManager<IdentityRole> roleManager { get; }
 
         private List<string> userList;
 
-        public AdminController(UserManager<ApplicantionUser> _userManager,
+        public AdminController(UserManager<ApplicationUser> _userManager,
             RoleManager<IdentityRole> _roleManager)
         {
             this.userManager = _userManager;

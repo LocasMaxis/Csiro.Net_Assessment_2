@@ -1,17 +1,28 @@
 using Csiro.Models;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using NLog;
+using NLog.Web;
+using NLog.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+
+
+var logger = NLog.LogManager.Setup().LoadConfigurationFromFile("./nlog.config").GetCurrentClassLogger();
+
+
+
 IConfigurationRoot configuration;
-
-
+configuration = new ConfigurationBuilder()
+                 .AddJsonFile("./config.json")
+    .Build();
 
 configuration = new ConfigurationBuilder().AddJsonFile("./config.json").Build();
 
@@ -23,7 +34,7 @@ builder.Services.AddDbContext<ApplicantDbContext>(options =>
 
 });
 
-builder.Services.AddIdentity<ApplicantionUser, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
         {
 	        options.SignIn.RequireConfirmedEmail = true;
          })
@@ -67,7 +78,7 @@ app.UseRouting();
 app.UseAuthentication();
 
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllerRoute(
