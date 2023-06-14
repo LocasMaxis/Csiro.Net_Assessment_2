@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.4.33403.182
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Csiro", "6.0arc\Csiro.csproj", "{6678F888-DD6C-45F9-B9C8-74EB8A3C5EF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Csiro", "Csiro\Csiro.csproj", "{07E6D19E-BCB2-425D-B1EB-12E0CC381690}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6678F888-DD6C-45F9-B9C8-74EB8A3C5EF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6678F888-DD6C-45F9-B9C8-74EB8A3C5EF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6678F888-DD6C-45F9-B9C8-74EB8A3C5EF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6678F888-DD6C-45F9-B9C8-74EB8A3C5EF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07E6D19E-BCB2-425D-B1EB-12E0CC381690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E6D19E-BCB2-425D-B1EB-12E0CC381690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E6D19E-BCB2-425D-B1EB-12E0CC381690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E6D19E-BCB2-425D-B1EB-12E0CC381690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B3E5C30C-616B-4286-AD28-942E45092B13}
+		SolutionGuid = {6C08E4F9-3918-4F21-B2C0-57691A48CD89}
 	EndGlobalSection
 EndGlobal
