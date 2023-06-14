@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Csiro.Models.ApplicationCombined>
+
+
+<table class="mt-auto table table-striped table-dark">
+    <tr>
+        <th>@Html.DisplayNameFor(m => m.a10.applicantID)</th>
+        <th>@Html.DisplayNameFor(m => m.a10.firstName)</th>
+        <th>@Html.DisplayNameFor(m => m.a10.lastName)</th>
+        <th>@Html.DisplayNameFor(m => m.a10.email)</th>
+        <th>@Html.DisplayNameFor(m => m.c10.CourseName)</th>
+        <th>@Html.DisplayNameFor(m => m.u10.UniName)</th>
+        <th>@{
+                var gpa = Html.DisplayNameFor(m => m.a10.gpa);
+            }
+            @Html.ActionLink(gpa,"SortGpa", true)
+        </th>
+        <th>@Html.DisplayNameFor(m => m.a10.coverLetter)</th>
+        <th>@Html.DisplayNameFor(m => m.a10.resume)</th>
+        <th>Delete</th>
+        <th>Accept</th>
+    </tr>
+
+    @foreach (var v in Model)
+    {
+      <tr>
+            <td>@v.a10.applicantID</td>
+            <td>@v.a10.firstName</td>
+            <td>@v.a10.lastName</td>
+            <td>@v.a10.email</td>
+            <td>@v.c10.CourseName</td>
+            <td>@v.u10.UniName</td>
+            <td>@v.a10.gpa</td>
+            <td>@v.a10.coverLetter</td>
+            <td>@v.a10.resume</td>
+            <td>@Html.ActionLink("Delete","DeleteApp", new {@applicationID = v.a10.applicantID })</td>
+            @if (!v.a10.sent)
+            {
+                <td>@Html.ActionLink("Accept","Accept", new {@applicationID = v.a10.applicantID})</td>
+            }
+            else{
+                <td>Email Sent</td>
+            }
+      </tr>
+    }
+</table>

@@ -1,0 +1,5 @@
+{
+  "GPA cutoff": 3.0,
+  "EnableDeveloperExceptions": "True",
+  "ConnectionStrings": { "DBConnection": "Server=DESKTOP-U9LAQTL;Database=CSIRO2;Encrypt=False;Integrated Security=true;" }
+}
