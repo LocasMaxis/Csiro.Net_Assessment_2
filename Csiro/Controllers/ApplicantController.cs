@@ -10,15 +10,14 @@ using System.Security.Claims;
 public class ApplicantController : Controller
 {
 	private readonly ApplicantDbContext _db;
-    private UserManager<IdentityUser> userManager { get; }
-    private SignInManager<IdentityUser> signInManager { get; }
+    private UserManager<ApplicationUser> userManager { get; }
+    private SignInManager<ApplicationUser> signInManager { get; }
 
-    public ApplicantController(ApplicantDbContext db//,UserManager<IdentityUser> _userManager, SignInManager<IdentityUser> _signInManager
-        )
+    public ApplicantController(ApplicantDbContext db,UserManager<ApplicationUser> _userManager, SignInManager<ApplicationUser> _signInManager)
 	{
 		_db = db;
-        //this.userManager = _userManager;
-        //this.signInManager = _signInManager;
+        this.userManager = _userManager;
+        this.signInManager = _signInManager;
     }
 
 	public IActionResult Index()
@@ -104,6 +103,48 @@ public class ApplicantController : Controller
     {
         return View();
 
+    }
+    //Get Applicant by ID
+    public async Task<IActionResult> Edit(int id)
+    {
+        var applicant = await _db.applicants.FindAsync(id);
+        if (applicant == null)
+        {
+            return NotFound();
+        }
+
+        var courses = _db.Courses.ToList();
+        var courseList = courses.Select(c => new SelectListItem
+        {
+            Value = c.CourseID.ToString(),
+            Text = c.CourseName,
+            Selected = c.CourseID == applicant.courseID
+        }).ToList();
+
+        var universities = _db.Universities.ToList();
+        var uniList = universities.Select(u => new SelectListItem
+        {
+            Value = u.UniID.ToString(),
+            Text = u.UniName,
+            Selected = u.UniID == applicant.uniID
+        }).ToList();
+
+        var viewModel = new ApplicantsViewModel
+        {
+            ApplicantID = applicant.applicantID,
+            FirstName = applicant.firstName,
+            LastName = applicant.lastName,
+            Email = applicant.email,
+            Gpa = applicant.gpa,
+            Resume = applicant.resume,
+            CoverLetter = applicant.coverLetter,
+            CourseID = applicant.courseID,
+            UniID = applicant.uniID,
+            courseList = courseList,
+            uniList = uniList
+        };
+
+        return View(viewModel);
     }
 
     //Edit user's application by ID: Applicant/display/id
