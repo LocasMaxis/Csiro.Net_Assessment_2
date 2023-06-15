@@ -45,7 +45,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
+builder.Services.AddSession(opts =>
+{
+    opts.Cookie.IsEssential = true; // make the session cookie Essential
+});
 var app = builder.Build();
 
 
