@@ -1,0 +1,19 @@
+﻿@model Csiro.ViewModels.EditProfileViewModel
+
+<div class="container mb-1" style="width: 38rem;">
+       <div class="card">
+       <h1 class="card-header text-center text-white bg-dark ">Profile</h1>
+           <div class="card-body">
+            <p><b>First Name:</b> @Model.FirstName</p>
+               <p><b>Last Name:</b> @Model.LastName</p>
+               <p><b>Phone No.:</b> @Model.PhoneNumber</p>
+               <p><b>State:</b> @Model.State</p>
+               <p><b>Address:</b> @Model.Address</p>
+               <p><b>Postcode:</b> @Model.Postcode</p>
+               <p><b>Date of Birth:</b> @Model.DateOfBirth?.ToString("yyyy-MM-dd")</p>
+           </div>
+        <div class="card-footer bg-dark">
+               <a href="@Url.Action("EditProfile")" class="btn btn-primary">Edit Profile</a>
+        </div>
+    </div>
+</div>
