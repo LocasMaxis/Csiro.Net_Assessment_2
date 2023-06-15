@@ -129,6 +129,7 @@ namespace Csiro.Controllers
         [HttpGet]
         public async Task<IActionResult> EditProfile()
         {
+         
             var u = await userManager.GetUserAsync(User);
 
             var model = new EditProfileViewModel

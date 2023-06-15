@@ -1,0 +1,7 @@
+﻿@model Csiro.ViewModels.ApplicantsViewModel
+
+<h1 class="text-center">No Application found. Please create a new application.</h1>
+
+<p class="text-center">
+    @Html.ActionLink("New Application", "Register", "Applicant", null, new { @class = "btn btn-primary" })
+</p>
