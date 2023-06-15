@@ -35,11 +35,11 @@ namespace Csiro.Controllers
                     Email = m.Email,
                     FirstName = m.FirstName,
                     LastName = m.LastName,
-                   /* Gpa = (float)m.Gpa,
-                    CourseID = m.CourseID,
-                    UniID = m.UniID,
-                    CoverLetter = m.CoverLetter,
-                    Resume = m.Resume*/
+                    PhoneNumber = m.PhoneNumber,
+                    State = m.State,
+                    Address = m.Address,
+                    Postcode = m.Postcode,
+                    DateOfBirth = m.DateOfBirth
                 };
 
                 var result = await userManager.CreateAsync(user, m.Password);
@@ -126,6 +126,77 @@ namespace Csiro.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public async Task<IActionResult> EditProfile()
+        {
+            var u = await userManager.GetUserAsync(User);
 
+            var model = new EditProfileViewModel
+            {
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                State = u.State,
+                Address = u.Address,
+                PhoneNumber = u.PhoneNumber,
+                Postcode = u.Postcode,
+                DateOfBirth = u.DateOfBirth
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(EditProfileViewModel m)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.GetUserAsync(User);
+
+                user.FirstName = m.FirstName;
+                user.LastName = m.LastName;
+                user.State = m.State;
+                user.Address = m.Address;
+                user.Postcode = m.Postcode;
+                user.DateOfBirth = m.DateOfBirth;
+                user.PhoneNumber = m.PhoneNumber;
+
+                var result = await userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    // Redirect to a success page or perform other actions
+                    return RedirectToAction("Profile");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            return View(m);
+        }
+
+        public async Task<IActionResult> Profile() //Get User's profule 
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            var m = new EditProfileViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                State = user.State,
+                Address = user.Address,
+                Postcode = user.Postcode,
+                PhoneNumber = user.PhoneNumber,
+                DateOfBirth = user.DateOfBirth
+            };
+
+            return View(m);
+        }
     }
+
 }
+
+    
+

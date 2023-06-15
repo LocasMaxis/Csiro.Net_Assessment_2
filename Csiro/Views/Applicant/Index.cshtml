@@ -1,0 +1,8 @@
+﻿@model Csiro.ViewModels.ApplicantsViewModel
+
+<h1 class="text-center">Manage Applications</h1>
+
+<p>
+    @Html.ActionLink("New Application", "Register", "Applicant", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("View Application", "Display", "Applicant", null, new { @class = "btn btn-primary" })
+</p>

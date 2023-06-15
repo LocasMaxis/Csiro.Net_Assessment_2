@@ -79,3 +79,15 @@ main {
     height: 350px;
 }
 
+.applicant-box {
+    background-color: beige;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+}
+
+
+

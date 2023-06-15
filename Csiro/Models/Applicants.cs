@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Csiro.Models
@@ -25,6 +26,10 @@ namespace Csiro.Models
         public string resume { get; set; }
         public bool sent { get; set; }
         public bool deleted { get; set; }
+
+ 
+
+
 
         public Applicants()
         {

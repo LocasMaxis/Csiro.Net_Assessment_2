@@ -1,24 +1,27 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Csiro.Models
+namespace Csiro.ViewModels
 {
-    public class ApplicationUser : IdentityUser
+    public class EditProfileViewModel //To Edit User profile
     {
-
-        //public int ApplicantID { get; set; } 
+        [Required]
+        [Display(Name = "First Name*:")]
         public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name*:")]
         public string LastName { get; set; }
+
         public string? State { get; set; }
 
         public string? Address { get; set; }
 
         public string? Postcode { get; set; }
 
+        public string? PhoneNumber { get; set;}
+
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
-
-
     }
 }

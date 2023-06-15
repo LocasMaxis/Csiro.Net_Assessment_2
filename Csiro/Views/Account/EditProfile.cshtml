@@ -1,0 +1,57 @@
+﻿@model Csiro.ViewModels.EditProfileViewModel
+
+
+<div class="container mb-1" style="width: 38rem;">
+
+       <div class="card">
+           <h1 class="card-header text-center text-white bg-dark ">Edit Profile</h1>
+
+@using (Html.BeginForm())
+{
+     <div class="card-body">
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address)
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.State)
+        @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Postcode)
+        @Html.TextBoxFor(m => m.Postcode, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber)
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DateOfBirth)
+        @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
+    </div>
+    </div>
+    <div class="card-footer bg-dark">
+                <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+
+  
+}

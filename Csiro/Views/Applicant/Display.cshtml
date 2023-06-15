@@ -1,0 +1,37 @@
+﻿@model Csiro.ViewModels.ApplicantsViewModel
+
+<h1>Application Details</h1>
+
+<div>
+    <b>Applicant ID:</b> @Model.ApplicantID
+</div>
+<div>
+    <b>First Name:</b> @Model.FirstName
+</div>
+<div>
+    <b>Last Name:</b> @Model.LastName
+</div>
+<div>
+    <b>Email:</b> @Model.Email
+</div>
+<div>
+    <b>GPA:</b> @Model.Gpa
+</div>
+<div>
+    <b>Resume:</b> @Model.Resume
+</div>
+<div>
+    <b>Cover Letter:</b> @Model.CoverLetter
+</div>
+<div>
+    <b>Course ID:</b> @Model.CourseID
+</div>
+<div>
+    <b>University ID:</b> @Model.UniID
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ApplicantID }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.ApplicantID }, new { onclick = "return confirm('Are you sure you want to delete this applicant?');" }) |
+    @Html.ActionLink("Back", "Index")
+</p>

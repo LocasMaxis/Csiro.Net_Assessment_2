@@ -1,0 +1,60 @@
+﻿@model Csiro.ViewModels.ApplicantsViewModel
+
+
+<h1>Edit Application</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="ApplicantID" />
+
+    <div class="form-group">
+        <label for="FirstName">First Name</label>
+        <input type="text" class="form-control" id="FirstName" name="FirstName" asp-for="FirstName" />
+    </div>
+
+    <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input type="text" class="form-control" id="LastName" name="LastName" asp-for="LastName" />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" asp-for="Email" />
+    </div>
+
+    <div class="form-group">
+        <label for="Gpa">GPA</label>
+        <input type="number" class="form-control" id="Gpa" name="Gpa" asp-for="Gpa" />
+    </div>
+
+    <div class="form-group">
+        <label for="Resume">Resume</label>
+        <textarea class="form-control" id="Resume" name="Resume" asp-for="Resume"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="CoverLetter">Cover Letter</label>
+        <textarea class="form-control" id="CoverLetter" name="CoverLetter" asp-for="CoverLetter"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="CourseID">Course</label>
+        <select class="form-control" id="CourseID" name="CourseID" asp-for="CourseID">
+            @foreach (var course in Model.courseList)
+            {
+                <option value="@course.Value" selected="@course.Selected">@course.Text</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="UniID">University</label>
+        <select class="form-control" id="UniID" name="UniID" asp-for="UniID">
+            @foreach (var university in Model.uniList)
+            {
+                <option value="@university.Value" selected="@university.Selected">@university.Text</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

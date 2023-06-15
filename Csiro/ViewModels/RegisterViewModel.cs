@@ -32,35 +32,19 @@ namespace Csiro.ViewModels
         [Compare("Password", ErrorMessage = "Password and confirm password do not match")]
         public string ConfirmPassword { get; set; }
 
-        /* [Display(Name = "GPA Score:")]
-         [Required(ErrorMessage = "GPA is required")]
-         [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "GPA must be a number with up to 2 decimal places")]
-         [Range(3.0, (double)decimal.MaxValue, ErrorMessage = "GPA must be greater than 3 to register")]
-         [DataType(DataType.Text)]
-         public decimal Gpa { get; set; }
+        [Display(Name = "Phone Number")]
+        public string? PhoneNumber { get; set; }
 
+        [Display(Name = "State")]
+        public string? State { get; set; }
 
-         [Display(Name = "Cover Letter (optional):")]
-         [DataType(DataType.MultilineText)]
-         public string CoverLetter { get; set; }
+        [Display(Name = "Address")]
+        public string? Address { get; set; }
 
-         [Display(Name = "Resume (optional):")]
-         [DataType(DataType.MultilineText)]
-         public string Resume { get; set; }
+        [Display(Name = "Postcode")]
+        public string? Postcode { get; set; }
 
-         [Display(Name = "Course:")]
-         public int CourseID { get; set; }
-         [Required(ErrorMessage = "Course is required")]
-         public List<SelectListItem> courseList { get; set; }
-
-         [Required(ErrorMessage = "University selection required")]
-         public int UniID { get; set; }
-         public List<SelectListItem> uniList { get; set; }
-
-         public RegisterViewModel()
-         {
-             courseList = new List<SelectListItem>();
-             uniList = new List<SelectListItem>();
-         }*/
+        [Display(Name = "Date of Birth")]
+        public DateTime? DateOfBirth { get; set; }
     }
 }

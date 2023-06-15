@@ -37,29 +37,43 @@
                     
                 </ul>
             </div>
-            
+
             <!-- Navbar Right -->
             <div class="navbar-nav ml-auto">
                 <ul class="navbar-nav">
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Profile"><b>Hi @User.Identity.Name.Split(' ')[0]</b></a>
+                        </li>
+
+                        @if (!User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Applicant" asp-action="Index"><b>Application</b></a>
+                            </li>
+                        }
+
+                        <li class="nav-item">
                             <a class="nav-link" asp-controller="Account" asp-action="Logout"><b>Log Out</b></a>
                         </li>
-                    } else {
+                    }
+                    else
+                    {
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Account" asp-action="Login"><b>Login</b></a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Register"><b>Register</b></a>
+                        </li>
                     }
-                    @if (User.IsInRole("Admin")){
-                     <li class="nav-item">
-                                <a class="nav-link" asp-controller="Admin" asp-action="DisplayApps"><b>Applications</b></a>
-                    </li>}
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Applicant" asp-action="Register"><b>Register</b></a>
-                    </li>
-                    
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="DisplayApps"><b>Applications</b></a>
+                        </li>
+                    }
                 </ul>
             </div>
         </nav>
