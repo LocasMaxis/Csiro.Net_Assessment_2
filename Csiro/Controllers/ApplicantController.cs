@@ -6,60 +6,63 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public class ApplicantController : Controller
 {
-	private readonly ApplicantDbContext _db;
+    private readonly ApplicantDbContext _db;
     private UserManager<ApplicationUser> userManager { get; }
     private SignInManager<ApplicationUser> signInManager { get; }
 
-    public ApplicantController(ApplicantDbContext db,UserManager<ApplicationUser> _userManager, SignInManager<ApplicationUser> _signInManager)
-	{
-		_db = db;
-        this.userManager = _userManager;
-        this.signInManager = _signInManager;
+    public ApplicantController(ApplicantDbContext db, UserManager<ApplicationUser> _userManager, SignInManager<ApplicationUser> _signInManager)
+    {
+        _db = db;
+        userManager = _userManager;
+        signInManager = _signInManager;
     }
 
-	public IActionResult Index()
-	{
-		return View();
-	}
+    public IActionResult Index()
+    {
+        //return RedirectToAction("Display");
+        return View();
+    }
 
-    //Drop down 
-    public IActionResult Register() //Applicant(view) -> Register.cshtml(razor view)
-	{
-		// Get courses from the database and populate courseList
-		var courses = _db.Courses.ToList();
-		var courseList = courses.Select(c => new SelectListItem
-		{
-			Value = c.CourseID.ToString(),
-			Text = c.CourseName
-		}).ToList();
-
-		// Get universities from the database and populate uniList
-		var universities = _db.Universities.ToList();
-		var uniList = universities.Select(u => new SelectListItem
-		{ 
-			Value = u.UniID.ToString(),
-			Text = u.UniName
-		}).ToList();
-
-		// Create instance of RegisterViewModel and  populate lists
-		var viewModel = new ApplicantsViewModel
+    public IActionResult Register() // Applicants(view) -> Register.cshtml(razor view)
+    {
+        // Get courses from the database and populate courseList
+        var courses = _db.Courses.ToList();
+        var courseList = courses.Select(c => new SelectListItem
         {
-			courseList = courseList,
-			uniList = uniList
-		};
+            Value = c.CourseID.ToString(),
+            Text = c.CourseName
+        }).ToList();
 
-		return View(viewModel);
-	}
+        // Get universities from the database and populate uniList
+        var universities = _db.Universities.ToList();
+        var uniList = universities.Select(u => new SelectListItem
+        {
+            Value = u.UniID.ToString(),
+            Text = u.UniName
+        }).ToList();
 
-    //create a new application
+        // Create instance of ApplicantsViewModel and populate lists
+        var viewModel = new ApplicantsViewModel
+        {
+            courseList = courseList,
+            uniList = uniList
+        };
+
+        return View(viewModel);
+    }
+
+    //User creates application
     [HttpPost]
     public async Task<IActionResult> Register(ApplicantsViewModel m)
     {
         if (ModelState.IsValid)
         {
+            var user = await userManager.GetUserAsync(User);
             var applicant = new Applicants
             {
                 firstName = m.FirstName,
@@ -70,7 +73,7 @@ public class ApplicantController : Controller
                 coverLetter = m.CoverLetter,
                 courseID = m.CourseID,
                 uniID = m.UniID,
-         
+                userId = user.Id
             };
 
             _db.applicants.Add(applicant);
@@ -99,15 +102,13 @@ public class ApplicantController : Controller
         return View(m);
     }
 
-    public IActionResult Success()
-    {
-        return View();
 
-    }
-    //Get Applicant by ID
-    public async Task<IActionResult> Edit(int id)
+    //Get application data for edit
+    public async Task<IActionResult> Edit()
     {
-        var applicant = await _db.applicants.FindAsync(id);
+        var user = await userManager.GetUserAsync(User);
+        var applicant = await _db.applicants.FirstOrDefaultAsync(a => a.userId == user.Id); //retrieves the first element from applicant. 
+
         if (applicant == null)
         {
             return NotFound();
@@ -147,44 +148,33 @@ public class ApplicantController : Controller
         return View(viewModel);
     }
 
-    //Edit user's application by ID: Applicant/display/id
+    //user edit application
     [HttpPost]
-    public async Task<IActionResult> Edit(int id, ApplicantsViewModel m)
+    public async Task<IActionResult> Edit(ApplicantsViewModel m)
     {
-        if (id != m.ApplicantID)
-        {
-            return NotFound();
-        }
-
         if (ModelState.IsValid)
         {
-            try
-            {
-                var applicant = await _db.applicants.FindAsync(id);
-                if (applicant == null)
-                {
-                    return NotFound();
-                }
+            var user = await userManager.GetUserAsync(User);
+            var applicant = await _db.applicants.FirstOrDefaultAsync(a => a.userId == user.Id);
 
-
-                applicant.firstName = m.FirstName;
-                applicant.lastName = m.LastName;
-                applicant.email = m.Email;
-                applicant.gpa = (float)m.Gpa;
-                applicant.resume = m.Resume;
-                applicant.coverLetter = m.CoverLetter;
-                applicant.courseID = m.CourseID;
-                applicant.uniID = m.UniID;
-
-                _db.applicants.Update(applicant);
-                await _db.SaveChangesAsync();
-
-                return RedirectToAction("Success");
-            }
-            catch (DbUpdateConcurrencyException)
+            if (applicant == null)
             {
                 return NotFound();
             }
+
+            applicant.firstName = m.FirstName;
+            applicant.lastName = m.LastName;
+            applicant.email = m.Email;
+            applicant.gpa = (float)m.Gpa;
+            applicant.resume = m.Resume;
+            applicant.coverLetter = m.CoverLetter;
+            applicant.courseID = m.CourseID;
+            applicant.uniID = m.UniID;
+
+            _db.applicants.Update(applicant);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("Success");
         }
 
         var courses = _db.Courses.ToList();
@@ -206,14 +196,15 @@ public class ApplicantController : Controller
 
         return View(m);
     }
-   
-    //Display User's application
-    public IActionResult Display(int id)
+
+    public async Task<IActionResult> Display()
     {
-        var applicant = _db.applicants.FirstOrDefault(a => a.applicantID == id);
+        var user = await userManager.GetUserAsync(User);
+        var applicant = await _db.applicants.FirstOrDefaultAsync(a => a.userId == user.Id);
+
         if (applicant == null)
         {
-            return NotFound();
+            return RedirectToAction("NoApp");
         }
 
         var viewModel = new ApplicantsViewModel
@@ -231,7 +222,11 @@ public class ApplicantController : Controller
 
         return View(viewModel);
     }
-    
+
+    public IActionResult Success()
+    {
+        return View();
+    }
     //Delete application 
     public async Task<IActionResult> Delete(int id)
     {
@@ -241,11 +236,23 @@ public class ApplicantController : Controller
             return NotFound();
         }
 
+        // Check if the logged-in user is the owner of the application
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (applicant.userId != userId)
+        {
+            return Unauthorized();
+        }
+
         _db.applicants.Remove(applicant);
         await _db.SaveChangesAsync();
 
         return RedirectToAction("Index");
     }
+
+    //when no application is found
+    public IActionResult NoApp()
+    {
+        return View();
+    }
+
 }
-
-

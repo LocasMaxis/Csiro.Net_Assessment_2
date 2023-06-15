@@ -23,6 +23,7 @@ namespace Csiro.Models
         [Display(Name = "Cover Letter")]
         public string? coverLetter { get; set; }
         [Display(Name = "Resume")]
+        public string userId { get; set; }
         public string resume { get; set; }
         public bool sent { get; set; }
         public bool deleted { get; set; }
