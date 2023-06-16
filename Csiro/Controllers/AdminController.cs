@@ -27,7 +27,6 @@ namespace Csiro.Controllers
 
         private List<string> userList;
         private readonly IConfiguration _configuration;
-        private int sort = 0;
 
         public AdminController(ApplicantDbContext db, UserManager<ApplicationUser> _userManager,
             RoleManager<IdentityRole> _roleManager, IConfiguration configuration)
@@ -129,8 +128,9 @@ namespace Csiro.Controllers
         [HttpGet]
         public IActionResult DisplayApps()
         {
+            int? sort = HttpContext.Session.GetInt32("sort");
             dynamic p;
-            if (sort == 0)
+            if (sort == 0 || sort == null)
             {
                 p = from a in _db.applicants.Where(a => a.deleted == false && a.gpa >= _configuration.GetValue<float>("GPA cutoff"))
                     join c in _db.Courses
@@ -138,18 +138,18 @@ namespace Csiro.Controllers
                     join u in _db.Universities
                     on a.uniID equals u.UniID
                     from c in anObject.DefaultIfEmpty()
-                    orderby a.firstName descending
+                    orderby a.firstName
                     select new
                     {
-                        applicantID = a.applicantID,
-                        firstName = a.firstName,
-                        lastName = a.lastName,
-                        email = a.email,
+                        a.applicantID,
+                        a.firstName,
+                        a.lastName,
+                        a.email,
                         courseName = c.CourseName,
                         uniName = u.UniName,
-                        gpa = a.gpa,
-                        resume = a.resume,
-                        sent = a.sent
+                        a.gpa,
+                        a.resume,
+                        a.sent
                     };
             }
             else if (sort == 1)
@@ -163,15 +163,15 @@ namespace Csiro.Controllers
                     orderby a.gpa descending
                     select new
                     {
-                        applicantID = a.applicantID,
-                        firstName = a.firstName,
-                        lastName = a.lastName,
-                        email = a.email,
+                        a.applicantID,
+                        a.firstName,
+                        a.lastName,
+                        a.email,
                         courseName = c.CourseName,
                         uniName = u.UniName,
-                        gpa = a.gpa,
-                        resume = a.resume,
-                        sent = a.sent
+                        a.gpa,
+                        a.resume,
+                        a.sent
                     };
             }
             else
@@ -182,18 +182,18 @@ namespace Csiro.Controllers
                     join u in _db.Universities
                     on a.uniID equals u.UniID
                     from c in anObject.DefaultIfEmpty()
-                    orderby a.gpa ascending
+                    orderby a.gpa
                     select new
                     {
-                        applicantID = a.applicantID,
-                        firstName = a.firstName,
-                        lastName = a.lastName,
-                        email = a.email,
+                        a.applicantID,
+                        a.firstName,
+                        a.lastName,
+                        a.email,
                         courseName = c.CourseName,
                         uniName = u.UniName,
-                        gpa = a.gpa,
-                        resume = a.resume,
-                        sent = a.sent
+                        a.gpa,
+                        a.resume,
+                        a.sent
                     };
             }
             List<ApplicationCombined> aList = new List<ApplicationCombined>();
@@ -212,32 +212,37 @@ namespace Csiro.Controllers
         [HttpGet]
         public IActionResult SortGpa()
         {
+            int? sort = HttpContext.Session.GetInt32("sort");
             if (sort == 0)
             {
-                sort = 1;
+                HttpContext.Session.SetInt32("sort", 1);
             }
             else if (sort == 1)
             {
-                sort = -1;
-            }
-            else { sort = 0; }
 
-            return View("DisplayApps");
+                HttpContext.Session.SetInt32("sort", -1);
+            }
+            else
+            {
+                HttpContext.Session.SetInt32("sort", 0);
+            }
+
+            return RedirectToAction("DisplayApps", "Admin");
         }
 
         [HttpGet]
-        public IActionResult DeleteApp(long applicationID)
+        public IActionResult DeleteApp(int applicantID)
         {
-            Applicants application = _db.applicants.Find(applicationID);
+            Applicants application = _db.applicants.Find(applicantID);
             application.deleted = true;
             _db.Update(application);
             _db.SaveChanges();
-            return View("DisplayApps");
+            return Redirect("DisplayApps");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Accept(long applicationID)
+        public async Task<IActionResult> Accept(int applicationID)
         {
             var currentUser = await userManager.GetUserAsync(User);
             var senderName = $"{currentUser.FirstName} {currentUser.LastName}";
@@ -253,14 +258,15 @@ namespace Csiro.Controllers
             {
                 var credentials = new NetworkCredential
                 {
-                    UserName = "CsrioAssignmentDummy@outlook.com",
-                    Password = "Mangaka2!"
+                    UserName = "csrioassignmentdummy@outlook.com",
+                    Password = "qbcolmiersnpgosl"
                 };
                 smtp.Credentials = credentials;
+                smtp.UseDefaultCredentials = false;
                 smtp.Host = "smtp-mail.outlook.com";
                 smtp.Port = 587;
                 smtp.EnableSsl = true;
-                await smtp.SendMailAsync(message);
+                smtp.Send(message);
             }
 
             applicant.sent = true;
