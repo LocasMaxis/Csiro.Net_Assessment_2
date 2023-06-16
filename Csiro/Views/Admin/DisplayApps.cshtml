@@ -12,7 +12,7 @@
         <th>@{
                 var gpa = Html.DisplayNameFor(m => m.a10.gpa);
             }
-            @Html.ActionLink(gpa,"SortGpa", true)
+            @Html.ActionLink(gpa,"SortGpa", null)
         </th>
         <th>@Html.DisplayNameFor(m => m.a10.coverLetter)</th>
         <th>@Html.DisplayNameFor(m => m.a10.resume)</th>
@@ -20,7 +20,7 @@
         <th>Accept</th>
     </tr>
 
-    @foreach (var v in Model)
+    @if(Model != null){foreach (var v in Model)
     {
       <tr>
             <td>@v.a10.applicantID</td>
@@ -32,14 +32,14 @@
             <td>@v.a10.gpa</td>
             <td>@v.a10.coverLetter</td>
             <td>@v.a10.resume</td>
-            <td>@Html.ActionLink("Delete","DeleteApp", new {@applicationID = v.a10.applicantID })</td>
+                <td>@Html.ActionLink("Delete","DeleteApp", new {@applicantID = v.a10.applicantID })</td>
             @if (!v.a10.sent)
             {
-                <td>@Html.ActionLink("Accept","Accept", new {@applicationID = v.a10.applicantID})</td>
+                <td>@Html.ActionLink("Accept","Accept", new {@applicantID = v.a10.applicantID})</td>
             }
             else{
                 <td>Email Sent</td>
             }
       </tr>
-    }
+    }}
 </table>
